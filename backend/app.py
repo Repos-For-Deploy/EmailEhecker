@@ -149,9 +149,9 @@ def login():
 
     if not check_password_hash(password_hash, password):
         return jsonify({"error": "Invalid credentials"}), 401
-
+    
     token = jwt.encode({"user_id": user_id}, os.getenv("SECRET_KEY"), algorithm="HS256")
-
+    print(session_token)
     cur.execute("UPDATE users SET session_token=%s WHERE id=%s", (token, user_id))
     mysql.connection.commit()
 
